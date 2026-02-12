@@ -1,6 +1,7 @@
 import './App.css'
-import CounterProvider from './components/useContext/CounterProvider'
-import Panel from './components/useContext/Panel'
+import StopWatch from './components/useRef/StopWatch'
+//import CounterProvider from './components/useContext/CounterProvider'
+//import Panel from './components/useContext/Panel'
 //import TodoApp from './components/useCallback/TodoApp'
 //import SalesStats from './components/useMemo/SalesStats'
 //import Form from './components/useState/Form'
@@ -18,10 +19,11 @@ function App() {
       <ProductList dispatch={dispatch} />
       <ShoppingCart cart={state} dispatch={dispatch} /> 
       <SalesStats />
-      <TodoApp />*/}
+      <TodoApp />
       <CounterProvider>
         <Panel />
-      </CounterProvider>
+      </CounterProvider>*/}
+      <StopWatch />
     </>
   )
 }
