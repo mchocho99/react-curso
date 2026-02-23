@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
-import { ActionTypes, type Action } from '../types'
+import React, { useEffect, useRef, useState } from 'react'
 
-const NoteForm = ({ dispatch }: { dispatch: React.Dispatch<Action> }) => {
+const NoteForm = ({ add }: { add: (formValue: { title: string; content: string }) => void }) => {
   const [formValue, setFormValue] = useState({ title: '', content: '' })
+
+  const formRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    formRef.current?.focus()
+  }, [])
 
   const handleAdd = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch({ type: ActionTypes.ADD, payload: { ...formValue } })
+    if (formValue.title !== '' && formValue.content !== '') add(formValue)
+
+    setFormValue({ title: '', content: '' })
   }
 
   const handleOnChange = (
@@ -27,6 +34,7 @@ const NoteForm = ({ dispatch }: { dispatch: React.Dispatch<Action> }) => {
         id="title"
         value={formValue.title}
         onChange={handleOnChange}
+        ref={formRef}
       />
       <br />
       <label id="content">Contenido</label>
