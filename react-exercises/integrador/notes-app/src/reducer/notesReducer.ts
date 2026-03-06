@@ -14,13 +14,13 @@ export const reducer = (state: Note[], action: Action): Note[] => {
       ]
 
     case ActionTypes.EDIT:
-      return state.map((n) => (n.id === action.payload.id ? action.payload.note : n))
+      return state.map((n) => (n.id === action.payload.id ? action.payload : n))
 
     case ActionTypes.DELETE:
       return state.filter((n) => n.id !== action.payload)
 
     case ActionTypes.TOGGLE_FAVORITE:
-      return state.map((n) => (n.id === action.payload ? { ...n, favorite: true } : n))
+      return state.map((n) => (n.id === action.payload ? { ...n, favorite: !n.favorite } : n))
 
     default:
       return state

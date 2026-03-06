@@ -14,7 +14,7 @@ export type Note = {
 
 export type Action =
   | { type: 'ADD'; payload: { title: string; content: string } }
-  | { type: 'EDIT'; payload: { id: number; note: Note } }
+  | { type: 'EDIT'; payload: Note }
   | { type: 'DELETE'; payload: number }
   | { type: 'TOGGLE_FAVORITE'; payload: number }
 

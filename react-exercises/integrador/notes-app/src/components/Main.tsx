@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useReducer, useState } from 'react'
 import { initialState, reducer } from '../reducer/notesReducer'
 import { useTheme } from '../context'
-import { ActionTypes, Theme } from '../types'
+import { ActionTypes, Theme, type Note } from '../types'
 import NoteForm from './NoteForm'
 import NoteList from './NoteList'
 import SearchBar from './SearchBar'
@@ -29,6 +29,18 @@ function Main() {
     )
   }, [state, searchValue])
 
+  const handleDelete = useCallback((id: number) => {
+    dispatch({ type: ActionTypes.DELETE, payload: id })
+  }, [])
+
+  const handleFav = useCallback((id: number) => {
+    dispatch({ type: ActionTypes.TOGGLE_FAVORITE, payload: id })
+  }, [])
+
+  const handleEdit = useCallback((note: Note) => {
+    dispatch({ type: ActionTypes.EDIT, payload: note })
+  }, [])
+
   return (
     <div className={theme?.theme === Theme.DARK ? 'dark' : 'light'}>
       <button onClick={() => theme?.changeTheme()}>Cambiar de tema</button>
@@ -36,7 +48,12 @@ function Main() {
       <SearchBar search={handleSearch} />
       {filteredNotes && filteredNotes.length > 0 && (
         <>
-          <NoteList notes={filteredNotes} />
+          <NoteList
+            notes={filteredNotes}
+            onDelete={handleDelete}
+            toggleFav={handleFav}
+            edit={handleEdit}
+          />
         </>
       )}
     </div>
